@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+//    testImplementation platform('org.junit:junit-bom:5.10.0')
+//    testImplementation 'org.junit.jupiter:junit-jupiter'
+//    implementation 'org.springframework:spring-core:6.2.0'
+//    implementation 'org.springframework.boot:spring-boot-starter-web:3.3.6'
+//    implementation 'org.springframework.boot:spring-boot-starter:3.3.6'
+//    testImplementation 'org.springframework.boot:spring-boot-starter-test:3.3.6'
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-gradle-plugin
+    implementation 'org.springframework.boot:spring-boot-gradle-plugin:3.2.12'//to use gradle
+    implementation 'org.springframework.boot:spring-boot-starter:3.2.12'//to start spring boot app
+    implementation 'org.springframework.boot:spring-boot-starter-web:3.2.12'//to start sb in web
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.2.12'//db interaction
+
+    implementation 'mysql:mysql-connector-java:8.0.33'//database
+    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'//unit testing
+    // https://mvnrepository.com/artifact/org.mockito/mockito-core
+    testImplementation 'org.mockito:mockito-core:5.10.0'//unit testing
+    testImplementation 'org.springframework.boot:spring-boot-test:3.2.12'//sb testing
+    // https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.10.0'//for unit testing
+    // https://mvnrepository.com/artifact/org.mockito/mockito-all
+    testImplementation 'org.mockito:mockito-all:1.10.19'//unit testing
+    compileOnly 'org.projectlombok:lombok:1.18.30'//for logging
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'//annotations
+    implementation 'org.slf4j:slf4j-api:2.0.13'//for logging
+
+}
+
+test {
+    useJUnitPlatform()
+}
