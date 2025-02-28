@@ -1,5 +1,6 @@
 package org.paymentSystemApp.Controller;
 
+import org.paymentSystemApp.Model.LoginRequest;
 import org.paymentSystemApp.Model.User;
 import org.paymentSystemApp.Model.UserDTO;
 import org.paymentSystemApp.Service.UserService;
@@ -19,7 +20,7 @@ import java.util.TreeMap;
 
 public class UserController {
     private final UserService userService;
-    @Autowired
+
 
     public UserController(UserService userService){
         this.userService = userService;
@@ -35,5 +36,10 @@ public class UserController {
         return userService.fetchUsers();
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<UserDTO> loginUser(@RequestBody LoginRequest loginRequest){
+          ResponseEntity<UserDTO> var = userService.userLogin(loginRequest);
+         return var;
+    }
 
 }
