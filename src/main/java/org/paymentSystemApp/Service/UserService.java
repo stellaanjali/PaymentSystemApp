@@ -45,15 +45,27 @@ public class UserService {
         }
     }
 
-    public ResponseEntity<List<UserDTO>> fetchUsers(){
-        System.out.println("Starting to fetch users");
-        List<User> usersFetched = userRepository.findAll();//user table mei jitne saman hai usko dhund ke la rhe, aur user fetched mei store kr rhe
-        System.out.println("Users Fetched");
-        List<UserDTO> userDTOs = usersFetched.stream().map(UserDTO::new).toList();    //mapping step
-        return ResponseEntity.status(HttpStatus.OK).body(userDTOs);
-    }
 
-    public ResponseEntity<UserDTO> userLogin(LoginRequest loginRequest){
+        public ResponseEntity<List<UserDTO>> fetchUsers(){
+            System.out.println("Starting to fetch users");
+            List<User> usersFetched = userRepository.findAll();
+
+            // Debugging: Print fetched users
+            System.out.println("Fetched Users: " + usersFetched);
+
+            if (usersFetched.isEmpty()) {
+                System.out.println("No users found in DB.");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(List.of());
+            }
+            System.out.println("Users Fetched Successfully");
+            // Debugging: Print mapped DTOs
+            List<UserDTO> userDTOs = usersFetched.stream().map(user -> new UserDTO(user)).toList();
+            System.out.println("Mapped DTOs: " + userDTOs);
+            return ResponseEntity.status(HttpStatus.OK).body(userDTOs);
+        }
+
+
+        public ResponseEntity<UserDTO> userLogin(LoginRequest loginRequest){
         String email = loginRequest.getEmail();
         String password = loginRequest.getPassword();
         System.out.println("Starting to fetch email from DB");

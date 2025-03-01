@@ -9,7 +9,7 @@ import lombok.*;
 
 @Getter
 @Setter
-// @JsonInclude(JsonInclude.Include.NON_NULL)//null chizen nahi dikhegi in response
+@JsonInclude(JsonInclude.Include.NON_NULL)//null chizen nahi dikhegi in response
 public class UserDTO {
 
 
@@ -29,26 +29,26 @@ public class UserDTO {
     @JsonProperty("message")
     private String message;
 
-//    public UserDTO(User user) {
-//        this.id = user.getId();
-//        this.name = user.getName();
-////        this.phoneNumber = user.getPhoneNumber();
-//        this.email = user.getEmail();
-//        this.password = user.getPassword();
-//    }
+    public UserDTO(User user) {
+        this.id = user.getId();
+        this.name = user.getName();
+//        this.phoneNumber = user.getPhoneNumber();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+    }
 
     public UserDTO(){
 
     }
 
-    public UserDTO(Integer id, String name,  String email, String password){
-        this.id = id;
-        this.name = name;
-//        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.password = password;
-
-    }
+//    public UserDTO(Integer id, String name,  String email, String password){
+//        this.id = id;
+//        this.name = name;
+////        this.phoneNumber = phoneNumber;
+//        this.email = email;
+//        this.password = password;
+//
+//    }
 
     public UserDTO(String email, String password){
         this.email = email;
@@ -60,8 +60,9 @@ public class UserDTO {
         this.message = message;
     }
 
-    public UserDTO(User user) {
-    }
+//    public UserDTO(User user) {
+//
+//    }
 }
 
 
