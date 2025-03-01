@@ -20,26 +20,26 @@ public class UserAccountService {
     }
 
     public ResponseEntity<VpaDTO> createVpa(Vpa vpa) {
-        Integer userId = vpa.getUserId();
-        List<Vpa> checkVpaIdInDb = vpaRepository.findByUserId(userId);
+        Integer user_id = vpa.getUser_id();
+        List<Vpa> checkVpaIdInDb = vpaRepository.findByUser_id(user_id);
         if (checkVpaIdInDb.isEmpty()) {
             String createdVpa = "";
-            createdVpa += vpa.getPhoneNumber();
-            createdVpa += vpa.getUserId();
+            createdVpa += vpa.getPhone_number();
+            createdVpa += vpa.getUser_id();
             createdVpa += "@";
-            createdVpa += vpa.getBankName();
+            createdVpa += vpa.getBank_name();
             Vpa vpaToBeSavedInDb = new Vpa();
-            vpaToBeSavedInDb.setUserId(vpa.getUserId());
-            vpaToBeSavedInDb.setPhoneNumber(vpa.getPhoneNumber());
-            vpaToBeSavedInDb.setBankName(vpa.getBankName());
-            vpaToBeSavedInDb.setVpaId(createdVpa);
+            vpaToBeSavedInDb.setUser_id(vpa.getUser_id());
+            vpaToBeSavedInDb.setPhone_number(vpa.getPhone_number());
+            vpaToBeSavedInDb.setBank_name(vpa.getBank_name());
+            vpaToBeSavedInDb.setVpa_id(createdVpa);
 
             Vpa savedVpa = vpaRepository.save(vpaToBeSavedInDb);
             VpaDTO vpaDto = new VpaDTO();
-            vpaDto.setUserId(savedVpa.getId());
-            vpaDto.setPhoneNumber(savedVpa.getPhoneNumber());
-            vpaDto.setBankName(savedVpa.getBankName());
-            vpaDto.setVpaId(savedVpa.getVpaId());
+            vpaDto.setUser_id(savedVpa.getUser_id());
+            vpaDto.setPhone_number(savedVpa.getPhone_number());
+            vpaDto.setBank_name(savedVpa.getBank_name());
+            vpaDto.setVpa_id(savedVpa.getVpa_id());
             vpaDto.setMessage("VPA created successfully!");
             return ResponseEntity.status(HttpStatus.CREATED).body(vpaDto);
         } else {

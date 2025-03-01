@@ -24,13 +24,13 @@ public class VpaDTO {
     @JsonProperty("id")
     private Integer id;
     @JsonProperty("user_id")
-    private Integer userId;
-    @JsonProperty("phoneNumber")
-    private String phoneNumber;
-    @JsonProperty("bankName")
-    private String bankName;
+    private Integer user_id;
+    @JsonProperty("phone_number")
+    private String phone_number;
+    @JsonProperty("bank_name")
+    private String bank_name;
     @JsonProperty("vpa_id")
-    private String vpaId;
+    private String vpa_id;
     @JsonProperty("message")
     private String message;
 }
