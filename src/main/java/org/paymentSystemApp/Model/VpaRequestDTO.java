@@ -1,37 +1,31 @@
 package org.paymentSystemApp.Model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity
-@Data
-@Table(name = "vpa")
+
+
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
+
+public class VpaRequestDTO {
 
 
-public class Vpa {
-    @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @JsonProperty("id")
-//    @Column(name="id")
-//    private Integer id;
-
-    @Column(name="user_id")
+    @JsonProperty("user_id")
     private Integer user_id;
-
-    @Column(name="phone_number")
+    @JsonProperty("phone_number")
     private String phone_number;
-    @Column(name="bank_name")
+    @JsonProperty("bank_name")
     private String bank_name;
-
-    @Column(name="vpa_id")
+    @JsonProperty("vpa_id")
     private String vpa_id;
-
-    @Column(name="pin")
+    @JsonProperty("pin")
     private Integer pin;
 
 }

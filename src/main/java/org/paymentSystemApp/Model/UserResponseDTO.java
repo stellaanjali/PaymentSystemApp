@@ -10,7 +10,7 @@ import lombok.*;
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)//null chizen nahi dikhegi in response
-public class UserDTO {
+public class UserResponseDTO {
 
 
     @Id
@@ -29,7 +29,7 @@ public class UserDTO {
     @JsonProperty("message")
     private String message;
 
-    public UserDTO(User user) {
+    public UserResponseDTO(User user) {
         this.id = user.getId();
         this.name = user.getName();
 //        this.phoneNumber = user.getPhoneNumber();
@@ -37,7 +37,7 @@ public class UserDTO {
         this.password = user.getPassword();
     }
 
-    public UserDTO(){
+    public UserResponseDTO(){
 
     }
 
@@ -50,12 +50,12 @@ public class UserDTO {
 //
 //    }
 
-    public UserDTO(String email, String password){
+    public UserResponseDTO(String email, String password){
         this.email = email;
         this.password = password;
     }
 
-    public UserDTO(LoginRequest loginRequest, String message){
+    public UserResponseDTO(LoginRequest loginRequest, String message){
         this.email = loginRequest.getEmail();
         this.message = message;
     }

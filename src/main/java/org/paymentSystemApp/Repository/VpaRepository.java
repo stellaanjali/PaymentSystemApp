@@ -15,9 +15,11 @@ import java.util.List;
 
         //List<Vpa> findByVpa_id(String vpa_id);
 
-    @Query("SELECT v FROM Vpa v WHERE v.user_id = :user_id")
+        @Query("SELECT v FROM Vpa v WHERE v.user_id = :user_id")
         List<Vpa> findByUser_id(@Param("user_id") Integer user_id);
-//    @Query("SELECT v FROM Vpa v WHERE v.userId = :userId")
-//    List<Vpa> findByUserId(@Param("userId") Integer userId);
+        //    @Query("SELECT v FROM Vpa v WHERE v.userId = :userId")
+        //    List<Vpa> findByUserId(@Param("userId") Integer userId);
+        @Query("SELECT v FROM Vpa v WHERE v.vpa_id = :vpa_id")
+        List<Vpa> findByVpa_id(@Param("vpa_id") String vpa_id);
 
     }

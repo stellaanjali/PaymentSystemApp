@@ -2,10 +2,9 @@ package org.paymentSystemApp.Controller;
 
 import org.paymentSystemApp.Model.LoginRequest;
 import org.paymentSystemApp.Model.User;
-import org.paymentSystemApp.Model.UserDTO;
+import org.paymentSystemApp.Model.UserRequestDTO;
+import org.paymentSystemApp.Model.UserResponseDTO;
 import org.paymentSystemApp.Service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 @RestController
 
@@ -27,18 +24,18 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity <UserDTO> registerUser(@RequestBody User user){
-       return userService.signupUser(user);
+    public ResponseEntity <UserResponseDTO> registerUser(@RequestBody UserRequestDTO userRequestDTO){
+       return userService.signupUser(userRequestDTO);
 
     }
     @GetMapping("/fetchUsers")
-    public ResponseEntity<List<UserDTO>> getUsers(){
+    public ResponseEntity<List<UserResponseDTO>> getUsers(){
         return userService.fetchUsers();
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserDTO> loginUser(@RequestBody LoginRequest loginRequest){
-          ResponseEntity<UserDTO> var = userService.userLogin(loginRequest);
+    public ResponseEntity<UserResponseDTO> loginUser(@RequestBody UserRequestDTO loginRequest){
+          ResponseEntity<UserResponseDTO> var = userService.userLogin(loginRequest);
          return var;
     }
 
