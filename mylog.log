@@ -1,0 +1,42 @@
+2025-03-16T23:35:59.998+05:30  INFO 15304 --- [paymentSystemApp] [main] o.p.PaymentSystemApplication             : Starting PaymentSystemApplication using Java 17.0.12 with PID 15304 (C:\Users\ANJALI\IdeaProjects\Payment-System\build\classes\java\main started by ANJALI in C:\Users\ANJALI\IdeaProjects\Payment-System)
+2025-03-16T23:36:00.007+05:30  INFO 15304 --- [paymentSystemApp] [main] o.p.PaymentSystemApplication             : No active profile set, falling back to 1 default profile: "default"
+2025-03-16T23:36:00.894+05:30  INFO 15304 --- [paymentSystemApp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-16T23:36:01.115+05:30  INFO 15304 --- [paymentSystemApp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 210 ms. Found 4 JPA repository interfaces.
+2025-03-16T23:36:01.924+05:30  INFO 15304 --- [paymentSystemApp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-03-16T23:36:01.937+05:30  INFO 15304 --- [paymentSystemApp] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-03-16T23:36:01.937+05:30  INFO 15304 --- [paymentSystemApp] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-03-16T23:36:02.031+05:30  INFO 15304 --- [paymentSystemApp] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-03-16T23:36:02.031+05:30  INFO 15304 --- [paymentSystemApp] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1951 ms
+2025-03-16T23:36:02.220+05:30  INFO 15304 --- [paymentSystemApp] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-16T23:36:02.314+05:30  INFO 15304 --- [paymentSystemApp] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.10.Final
+2025-03-16T23:36:02.360+05:30  INFO 15304 --- [paymentSystemApp] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-03-16T23:36:02.642+05:30  INFO 15304 --- [paymentSystemApp] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-16T23:36:02.681+05:30  INFO 15304 --- [paymentSystemApp] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-03-16T23:36:03.128+05:30  INFO 15304 --- [paymentSystemApp] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@531a716c
+2025-03-16T23:36:03.129+05:30  INFO 15304 --- [paymentSystemApp] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-03-16T23:36:04.181+05:30  INFO 15304 --- [paymentSystemApp] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-16T23:36:04.260+05:30  INFO 15304 --- [paymentSystemApp] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-16T23:36:04.570+05:30  INFO 15304 --- [paymentSystemApp] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-03-16T23:36:04.985+05:30  WARN 15304 --- [paymentSystemApp] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'transactionController' defined in file [C:\Users\ANJALI\IdeaProjects\Payment-System\build\classes\java\main\org\paymentSystemApp\Controller\TransactionController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'transactionService' defined in file [C:\Users\ANJALI\IdeaProjects\Payment-System\build\classes\java\main\org\paymentSystemApp\Service\TransactionService.class]: Unsatisfied dependency expressed through constructor parameter 5: Error creating bean with name 'riskFraudCallerService' defined in file [C:\Users\ANJALI\IdeaProjects\Payment-System\build\classes\java\main\org\paymentSystemApp\Service\RiskFraudCallerService.class]: Unsatisfied dependency expressed through constructor parameter 0: No qualifying bean of type 'org.springframework.web.reactive.function.client.WebClient' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+2025-03-16T23:36:04.985+05:30  INFO 15304 --- [paymentSystemApp] [main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-16T23:36:04.988+05:30  INFO 15304 --- [paymentSystemApp] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-03-16T23:36:04.994+05:30  INFO 15304 --- [paymentSystemApp] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-03-16T23:36:04.997+05:30  INFO 15304 --- [paymentSystemApp] [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2025-03-16T23:36:05.009+05:30  INFO 15304 --- [paymentSystemApp] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-03-16T23:36:05.034+05:30 ERROR 15304 --- [paymentSystemApp] [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 0 of constructor in org.paymentSystemApp.Service.RiskFraudCallerService required a bean of type 'org.springframework.web.reactive.function.client.WebClient' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'org.springframework.web.reactive.function.client.WebClient' in your configuration.
+
