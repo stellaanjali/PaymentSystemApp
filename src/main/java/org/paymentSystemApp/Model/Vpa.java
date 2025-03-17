@@ -2,7 +2,7 @@ package org.paymentSystemApp.Model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.*; // lombok mei jo v h sab import kro..* ka matlab sara
 
 @Entity
 @Data

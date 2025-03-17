@@ -12,7 +12,7 @@ repositories {
 dependencies {
 //    testImplementation platform('org.junit:junit-bom:5.10.0')
 //    testImplementation 'org.junit.jupiter:junit-jupiter'
-//    implementation 'org.springframework:spring-core:6.2.0'
+      implementation 'org.springframework:spring-core:6.2.0'
 //    implementation 'org.springframework.boot:spring-boot-starter-web:3.3.6'
 //    implementation 'org.springframework.boot:spring-boot-starter:3.3.6'
 //    testImplementation 'org.springframework.boot:spring-boot-starter-test:3.3.6'
@@ -36,6 +36,9 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.30'//for logging
     annotationProcessor 'org.projectlombok:lombok:1.18.30'//annotations
     implementation 'org.slf4j:slf4j-api:2.0.13'//for logging
+    implementation 'org.springframework.boot:spring-boot-starter-webflux:3.2.12'
+
+
 
 }
 

@@ -40,4 +40,8 @@ public class TransactionResponseDTO {
     private LocalDateTime current_status_timestamp;
     @JsonProperty("timestamp")
     private LocalDateTime timestamp;
+    @JsonProperty("fraud_prediction")
+    private Boolean fraud_prediction;
+    @JsonProperty("fraud_probability")
+    private Float fraud_probability;
 }

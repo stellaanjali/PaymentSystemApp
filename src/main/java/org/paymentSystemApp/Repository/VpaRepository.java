@@ -8,10 +8,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
     public interface VpaRepository extends JpaRepository<Vpa, Integer> {
+
+    @Query("SELECT v FROM Vpa v WHERE v.vpa_id = :vpa_id")
+    List<Vpa> findByVpa_id(@Param("vpa_id") String vpa_id);
 
         //List<Vpa> findByVpa_id(String vpa_id);
 
@@ -19,7 +23,6 @@ import java.util.List;
         List<Vpa> findByUser_id(@Param("user_id") Integer user_id);
         //    @Query("SELECT v FROM Vpa v WHERE v.userId = :userId")
         //    List<Vpa> findByUserId(@Param("userId") Integer userId);
-        @Query("SELECT v FROM Vpa v WHERE v.vpa_id = :vpa_id")
-        List<Vpa> findByVpa_id(@Param("vpa_id") String vpa_id);
+
 
     }
