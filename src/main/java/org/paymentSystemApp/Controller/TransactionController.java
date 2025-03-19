@@ -1,5 +1,6 @@
 package org.paymentSystemApp.Controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.paymentSystemApp.Model.TransactionRequestDTO;
 import org.paymentSystemApp.Model.TransactionResponseDTO;
 import org.paymentSystemApp.Model.VpaBalanceRequestDTO;
@@ -21,7 +22,7 @@ public class TransactionController {
     }
 
     @PostMapping("/initiateTransaction")
-    public ResponseEntity<TransactionResponseDTO> initiateTransaction (@RequestBody TransactionRequestDTO transactionRequestDTO){
+    public ResponseEntity<TransactionResponseDTO> initiateTransaction (@RequestBody TransactionRequestDTO transactionRequestDTO) throws JsonProcessingException {
         return transactionService.initiateTransaction(transactionRequestDTO);
     }
 

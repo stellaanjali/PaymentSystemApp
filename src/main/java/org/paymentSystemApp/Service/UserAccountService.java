@@ -38,6 +38,7 @@ public class UserAccountService {
             Vpa savedVpa = vpaRepository.save(vpaToBeSavedInDb);
 
             VpaResponseDTO vpaResponseDto = new VpaResponseDTO();// creating response
+
             vpaResponseDto.setUser_id(savedVpa.getUser_id());
             vpaResponseDto.setPhone_number(savedVpa.getPhone_number());
             vpaResponseDto.setBank_name(savedVpa.getBank_name());
@@ -46,6 +47,7 @@ public class UserAccountService {
             return ResponseEntity.status(HttpStatus.CREATED).body(vpaResponseDto);
         } else {
             VpaResponseDTO vpaResponseDto = new VpaResponseDTO();
+
             vpaResponseDto.setMessage("VPA already exists!");
             return ResponseEntity.status(HttpStatus.CONFLICT).body(vpaResponseDto);
         }

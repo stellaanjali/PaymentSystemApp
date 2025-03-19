@@ -1,5 +1,6 @@
 package org.paymentSystemApp.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.paymentSystemApp.Model.*;
 import org.paymentSystemApp.Repository.TransactionRepository;
 import org.paymentSystemApp.Repository.VpaBalanceRepository;
@@ -34,7 +35,7 @@ public class TransactionService {
         this.riskFraudCallerService = riskFraudCallerService;
     }
 
-    public ResponseEntity<TransactionResponseDTO> initiateTransaction(TransactionRequestDTO transactionRequestDTO) {
+    public ResponseEntity<TransactionResponseDTO> initiateTransaction(TransactionRequestDTO transactionRequestDTO) throws JsonProcessingException {
         Boolean isValidDebitorVpa = validateDebitorVpa(transactionRequestDTO.getDebitor_vpa());
         Boolean isValidCreditorVpa = validateCreditorVpa(transactionRequestDTO.getCreditor_vpa());
 
@@ -98,12 +99,23 @@ public class TransactionService {
                 FraudCheckRequestDTO fraudCheckRequestDTO = new FraudCheckRequestDTO();
                 BigDecimal debitorBalance = fetchBalanceFromVpaId(transactionRequestDTO.getDebitor_vpa());
                 BigDecimal creditorBalance = fetchBalanceFromVpaId(transactionRequestDTO.getCreditor_vpa());
+                fraudCheckRequestDTO.setDebitor_balance(debitorBalance);
+                fraudCheckRequestDTO.setCreditor_balance(creditorBalance);
 
                 fraudCheckRequestDTO.setAmount(transactionRequestDTO.getAmount());
                 fraudCheckRequestDTO.setDebitor_txn_history(7);
                 fraudCheckRequestDTO.setCreditor_txn_history(10);
                 fraudCheckRequestDTO.setDebitor_avg_txn(BigDecimal.valueOf(22.50));
+                System.out.println("Starting to call risk and fraud microservice to check our transaction");
+                long beforeCallingRiskFraudService = System.currentTimeMillis();
+                System.out.println("Current Timestamp in Milliseconds: " + beforeCallingRiskFraudService);
+
                 FraudCheckResponseDTO fraudCheckResponseDTO = riskFraudCallerService.sendDataToRiskFraudService(fraudCheckRequestDTO);
+                long afterCallingRiskFraudService = System.currentTimeMillis();
+                System.out.println("Current Timestamp in Milliseconds: " + afterCallingRiskFraudService);
+                long apiRTT = afterCallingRiskFraudService - beforeCallingRiskFraudService;
+                System.out.println("Round trip time for the API was:" +apiRTT + " ms");
+                System.out.println("Response fetched from risk and fraud");
                 response.setFraud_prediction(fraudCheckResponseDTO.getFraud_prediction());
                 response.setFraud_probability(fraudCheckResponseDTO.getFraud_probability());
                 return ResponseEntity.status(HttpStatus.OK).body(response);
