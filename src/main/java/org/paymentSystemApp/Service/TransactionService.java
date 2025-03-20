@@ -24,20 +24,24 @@ public class TransactionService {
     private final AmountValidationService amountValidationService;
     private final VpaBalanceRepository vpaBalanceRepository;
     private final RiskFraudCallerService riskFraudCallerService;
+    private final SettlementService settlementService;
 
     public TransactionService(TransactionRepository transactionRepository, VpaRepository vpaRepository, TransactionIdGenerationService transactionIdGenerationService, AmountValidationService amountValidationService,
-                              VpaBalanceRepository vpaBalanceRepository, RiskFraudCallerService riskFraudCallerService) { //Constructor Injection
+                              VpaBalanceRepository vpaBalanceRepository, RiskFraudCallerService riskFraudCallerService, SettlementService settlementService) { //Constructor Injection
         this.transactionRepository = transactionRepository;
         this.vpaRepository = vpaRepository;
         this.transactionIdGenerationService = transactionIdGenerationService;
         this.amountValidationService = amountValidationService;
         this.vpaBalanceRepository = vpaBalanceRepository;
         this.riskFraudCallerService = riskFraudCallerService;
+        this.settlementService = settlementService;
     }
 
     public ResponseEntity<TransactionResponseDTO> initiateTransaction(TransactionRequestDTO transactionRequestDTO) throws JsonProcessingException {
+        LocalDateTime transactionInitiatedTime = LocalDateTime.now();
         Boolean isValidDebitorVpa = validateDebitorVpa(transactionRequestDTO.getDebitor_vpa());
         Boolean isValidCreditorVpa = validateCreditorVpa(transactionRequestDTO.getCreditor_vpa());
+
 
         TransactionResponseDTO response = new TransactionResponseDTO();
         if (!isValidDebitorVpa) {
@@ -83,17 +87,26 @@ public class TransactionService {
                 String status = "Transaction Id Generated";
                 TransactionStatus txnStatus = new TransactionStatus(txnId, transactionRequestDTO.getDebitor_vpa(),
                         transactionRequestDTO.getCreditor_vpa(), transactionRequestDTO.getAmount(), transactionRequestDTO.getCurrency(),
-                        status, transactionRequestDTO.getNote(), LocalDateTime.now(), LocalDateTime.now());
-                TransactionStatus savedTxnStatus = transactionRepository.save(txnStatus);
+                        status, transactionRequestDTO.getNote(), transactionInitiatedTime, LocalDateTime.now());
+                TransactionStatus savedTxnStatus = transactionRepository.save(txnStatus); // transaction id generate ho gya so save kr rhe
                 if (!amountValidationService.validateDebitorBalance(transactionRequestDTO.getDebitor_vpa(), transactionRequestDTO.getAmount())) {
                     status = "Amount Validation Failed";
                     TransactionStatus txnAmountValidation = new TransactionStatus(txnId, transactionRequestDTO.getDebitor_vpa(),
                             transactionRequestDTO.getCreditor_vpa(), transactionRequestDTO.getAmount(), transactionRequestDTO.getCurrency(),
-                            status, transactionRequestDTO.getNote(), LocalDateTime.now(), LocalDateTime.now());
-                    TransactionStatus savedTxnAmount = transactionRepository.save(txnAmountValidation);//line 84 mei jo txn id save kiya wahi idhar save kr rhe
+                            status, transactionRequestDTO.getNote(), transactionInitiatedTime, LocalDateTime.now());
+                    TransactionStatus transactionValidationFailed = transactionRepository.save(txnAmountValidation);//line 84 mei jo txn id save kiya wahi idhar save kr rhe
                     response.setMessage("Amount Validation Failed");
                     return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
                 }
+
+
+                status = "Amount Validation Passed";
+                TransactionStatus txnAmountValidation = new TransactionStatus(txnId, transactionRequestDTO.getDebitor_vpa(),
+                        transactionRequestDTO.getCreditor_vpa(), transactionRequestDTO.getAmount(), transactionRequestDTO.getCurrency(),
+                        status, transactionRequestDTO.getNote(), transactionInitiatedTime, LocalDateTime.now());
+                TransactionStatus transactionValidationPassed = transactionRepository.save(txnAmountValidation);
+
+
                 // response.setMessage("Done till Amount Validation, Fraud and Risk Check Next");
                 // return ResponseEntity.status(HttpStatus.OK).body(response);
                 FraudCheckRequestDTO fraudCheckRequestDTO = new FraudCheckRequestDTO();
@@ -116,9 +129,32 @@ public class TransactionService {
                 long apiRTT = afterCallingRiskFraudService - beforeCallingRiskFraudService;
                 System.out.println("Round trip time for the API was:" +apiRTT + " ms");
                 System.out.println("Response fetched from risk and fraud");
-                response.setFraud_prediction(fraudCheckResponseDTO.getFraud_prediction());
-                response.setFraud_probability(fraudCheckResponseDTO.getFraud_probability());
+
+                if(fraudCheckResponseDTO.getFraud_prediction()){
+                    status = "Fraud Payment Detected";
+                    TransactionStatus fraudValidation = new TransactionStatus(txnId, transactionRequestDTO.getDebitor_vpa(),
+                            transactionRequestDTO.getCreditor_vpa(), transactionRequestDTO.getAmount(), transactionRequestDTO.getCurrency(),
+                            status, transactionRequestDTO.getNote(), transactionInitiatedTime, LocalDateTime.now());
+                    TransactionStatus fraudValidationPassed = transactionRepository.save(fraudValidation);
+                    response.setFraud_prediction(fraudCheckResponseDTO.getFraud_prediction());
+
+                    response.setFraud_probability(fraudCheckResponseDTO.getFraud_probability());
+                    response.setMessage("Fraud Payment Detected");
+                    response.setTimestamp(LocalDateTime.now());
+                    return ResponseEntity.status(HttpStatus.OK).body(response); // jaha v return kr rhe code aage nahi jayega
+                }
+                status = "Payment is not Fraud";
+                TransactionStatus fraudValidation = new TransactionStatus(txnId, transactionRequestDTO.getDebitor_vpa(),
+                        transactionRequestDTO.getCreditor_vpa(), transactionRequestDTO.getAmount(), transactionRequestDTO.getCurrency(),
+                        status, transactionRequestDTO.getNote(), transactionInitiatedTime, LocalDateTime.now());
+                TransactionStatus fraudValidationPassed = transactionRepository.save(fraudValidation);
+
+
+                settlementService.settleTransaction(transactionRequestDTO, txnId, transactionInitiatedTime);
+                response.setMessage("Settlement completed");
                 return ResponseEntity.status(HttpStatus.OK).body(response);
+
+
 
 
             }

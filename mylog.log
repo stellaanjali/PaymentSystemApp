@@ -159,3 +159,103 @@ Original Stack Trace:
 2025-03-20T00:22:14.939+05:30  INFO 11168 --- [paymentSystemApp] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2025-03-20T00:22:14.941+05:30  INFO 11168 --- [paymentSystemApp] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2025-03-20T00:22:14.942+05:30  INFO 11168 --- [paymentSystemApp] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-03-20T23:23:04.863+05:30  INFO 28248 --- [paymentSystemApp] [main] o.p.PaymentSystemApplication             : Starting PaymentSystemApplication using Java 17.0.12 with PID 28248 (C:\Users\ANJALI\IdeaProjects\Payment-System\build\classes\java\main started by ANJALI in C:\Users\ANJALI\IdeaProjects\Payment-System)
+2025-03-20T23:23:04.866+05:30  INFO 28248 --- [paymentSystemApp] [main] o.p.PaymentSystemApplication             : No active profile set, falling back to 1 default profile: "default"
+2025-03-20T23:23:05.678+05:30  INFO 28248 --- [paymentSystemApp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-20T23:23:05.893+05:30  INFO 28248 --- [paymentSystemApp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 205 ms. Found 4 JPA repository interfaces.
+2025-03-20T23:23:06.669+05:30  INFO 28248 --- [paymentSystemApp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-03-20T23:23:06.682+05:30  INFO 28248 --- [paymentSystemApp] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-03-20T23:23:06.682+05:30  INFO 28248 --- [paymentSystemApp] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-03-20T23:23:06.777+05:30  INFO 28248 --- [paymentSystemApp] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-03-20T23:23:06.777+05:30  INFO 28248 --- [paymentSystemApp] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1845 ms
+2025-03-20T23:23:06.962+05:30  INFO 28248 --- [paymentSystemApp] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-20T23:23:07.043+05:30  INFO 28248 --- [paymentSystemApp] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.10.Final
+2025-03-20T23:23:07.107+05:30  INFO 28248 --- [paymentSystemApp] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-03-20T23:23:07.430+05:30  INFO 28248 --- [paymentSystemApp] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-20T23:23:07.476+05:30  INFO 28248 --- [paymentSystemApp] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-03-20T23:23:07.935+05:30  INFO 28248 --- [paymentSystemApp] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@40b31a16
+2025-03-20T23:23:07.935+05:30  INFO 28248 --- [paymentSystemApp] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-03-20T23:23:09.050+05:30  INFO 28248 --- [paymentSystemApp] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-20T23:23:09.131+05:30  INFO 28248 --- [paymentSystemApp] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-20T23:23:09.458+05:30  INFO 28248 --- [paymentSystemApp] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-03-20T23:23:10.207+05:30  WARN 28248 --- [paymentSystemApp] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-20T23:23:10.548+05:30  INFO 28248 --- [paymentSystemApp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2025-03-20T23:23:10.564+05:30  INFO 28248 --- [paymentSystemApp] [main] o.p.PaymentSystemApplication             : Started PaymentSystemApplication in 6.135 seconds (process running for 6.594)
+2025-03-20T23:26:08.136+05:30  INFO 28248 --- [paymentSystemApp] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-03-20T23:26:08.138+05:30  INFO 28248 --- [paymentSystemApp] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-03-20T23:26:08.146+05:30  INFO 28248 --- [paymentSystemApp] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
+2025-03-20T23:34:47.442+05:30  INFO 29272 --- [paymentSystemApp] [main] o.p.PaymentSystemApplication             : Starting PaymentSystemApplication using Java 17.0.12 with PID 29272 (C:\Users\ANJALI\IdeaProjects\Payment-System\build\classes\java\main started by ANJALI in C:\Users\ANJALI\IdeaProjects\Payment-System)
+2025-03-20T23:34:47.446+05:30  INFO 29272 --- [paymentSystemApp] [main] o.p.PaymentSystemApplication             : No active profile set, falling back to 1 default profile: "default"
+2025-03-20T23:34:48.261+05:30  INFO 29272 --- [paymentSystemApp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-20T23:34:48.472+05:30  INFO 29272 --- [paymentSystemApp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 197 ms. Found 4 JPA repository interfaces.
+2025-03-20T23:34:49.330+05:30  INFO 29272 --- [paymentSystemApp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-03-20T23:34:49.343+05:30  INFO 29272 --- [paymentSystemApp] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-03-20T23:34:49.344+05:30  INFO 29272 --- [paymentSystemApp] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-03-20T23:34:49.439+05:30  INFO 29272 --- [paymentSystemApp] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-03-20T23:34:49.440+05:30  INFO 29272 --- [paymentSystemApp] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1934 ms
+2025-03-20T23:34:49.642+05:30  INFO 29272 --- [paymentSystemApp] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-20T23:34:49.739+05:30  INFO 29272 --- [paymentSystemApp] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.10.Final
+2025-03-20T23:34:49.791+05:30  INFO 29272 --- [paymentSystemApp] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-03-20T23:34:50.112+05:30  INFO 29272 --- [paymentSystemApp] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-20T23:34:50.151+05:30  INFO 29272 --- [paymentSystemApp] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-03-20T23:34:50.533+05:30  INFO 29272 --- [paymentSystemApp] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1f9a7684
+2025-03-20T23:34:50.538+05:30  INFO 29272 --- [paymentSystemApp] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-03-20T23:34:51.654+05:30  INFO 29272 --- [paymentSystemApp] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-20T23:34:51.721+05:30  INFO 29272 --- [paymentSystemApp] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-20T23:34:52.018+05:30  INFO 29272 --- [paymentSystemApp] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-03-20T23:34:52.735+05:30  WARN 29272 --- [paymentSystemApp] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-20T23:34:53.065+05:30  INFO 29272 --- [paymentSystemApp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2025-03-20T23:34:53.074+05:30  INFO 29272 --- [paymentSystemApp] [main] o.p.PaymentSystemApplication             : Started PaymentSystemApplication in 6.081 seconds (process running for 6.582)
+2025-03-20T23:35:05.707+05:30  INFO 29272 --- [paymentSystemApp] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-03-20T23:35:05.708+05:30  INFO 29272 --- [paymentSystemApp] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-03-20T23:35:05.710+05:30  INFO 29272 --- [paymentSystemApp] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-03-20T23:37:51.365+05:30  INFO 30272 --- [paymentSystemApp] [main] o.p.PaymentSystemApplication             : Starting PaymentSystemApplication using Java 17.0.12 with PID 30272 (C:\Users\ANJALI\IdeaProjects\Payment-System\build\classes\java\main started by ANJALI in C:\Users\ANJALI\IdeaProjects\Payment-System)
+2025-03-20T23:37:51.365+05:30  INFO 30272 --- [paymentSystemApp] [main] o.p.PaymentSystemApplication             : No active profile set, falling back to 1 default profile: "default"
+2025-03-20T23:37:52.120+05:30  INFO 30272 --- [paymentSystemApp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-20T23:37:52.295+05:30  INFO 30272 --- [paymentSystemApp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 161 ms. Found 4 JPA repository interfaces.
+2025-03-20T23:37:52.975+05:30  INFO 30272 --- [paymentSystemApp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-03-20T23:37:52.989+05:30  INFO 30272 --- [paymentSystemApp] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-03-20T23:37:52.989+05:30  INFO 30272 --- [paymentSystemApp] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-03-20T23:37:53.074+05:30  INFO 30272 --- [paymentSystemApp] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-03-20T23:37:53.074+05:30  INFO 30272 --- [paymentSystemApp] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1650 ms
+2025-03-20T23:37:53.236+05:30  INFO 30272 --- [paymentSystemApp] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-20T23:37:53.315+05:30  INFO 30272 --- [paymentSystemApp] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.10.Final
+2025-03-20T23:37:53.354+05:30  INFO 30272 --- [paymentSystemApp] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-03-20T23:37:53.611+05:30  INFO 30272 --- [paymentSystemApp] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-20T23:37:53.640+05:30  INFO 30272 --- [paymentSystemApp] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-03-20T23:37:53.948+05:30  INFO 30272 --- [paymentSystemApp] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1f9a7684
+2025-03-20T23:37:53.948+05:30  INFO 30272 --- [paymentSystemApp] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-03-20T23:37:54.873+05:30  INFO 30272 --- [paymentSystemApp] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-20T23:37:54.934+05:30  INFO 30272 --- [paymentSystemApp] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-20T23:37:55.192+05:30  INFO 30272 --- [paymentSystemApp] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-03-20T23:37:55.841+05:30  WARN 30272 --- [paymentSystemApp] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-20T23:37:56.129+05:30  INFO 30272 --- [paymentSystemApp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2025-03-20T23:37:56.132+05:30  INFO 30272 --- [paymentSystemApp] [main] o.p.PaymentSystemApplication             : Started PaymentSystemApplication in 5.19 seconds (process running for 5.654)
+2025-03-20T23:38:15.949+05:30  INFO 30272 --- [paymentSystemApp] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-03-20T23:38:15.950+05:30  INFO 30272 --- [paymentSystemApp] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-03-20T23:38:15.951+05:30  INFO 30272 --- [paymentSystemApp] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-03-20T23:41:36.864+05:30  INFO 23612 --- [paymentSystemApp] [main] o.p.PaymentSystemApplication             : Starting PaymentSystemApplication using Java 17.0.12 with PID 23612 (C:\Users\ANJALI\IdeaProjects\Payment-System\build\classes\java\main started by ANJALI in C:\Users\ANJALI\IdeaProjects\Payment-System)
+2025-03-20T23:41:36.871+05:30  INFO 23612 --- [paymentSystemApp] [main] o.p.PaymentSystemApplication             : No active profile set, falling back to 1 default profile: "default"
+2025-03-20T23:41:37.635+05:30  INFO 23612 --- [paymentSystemApp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-20T23:41:37.820+05:30  INFO 23612 --- [paymentSystemApp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 172 ms. Found 4 JPA repository interfaces.
+2025-03-20T23:41:38.528+05:30  INFO 23612 --- [paymentSystemApp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-03-20T23:41:38.538+05:30  INFO 23612 --- [paymentSystemApp] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-03-20T23:41:38.538+05:30  INFO 23612 --- [paymentSystemApp] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-03-20T23:41:38.624+05:30  INFO 23612 --- [paymentSystemApp] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-03-20T23:41:38.625+05:30  INFO 23612 --- [paymentSystemApp] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1701 ms
+2025-03-20T23:41:38.794+05:30  INFO 23612 --- [paymentSystemApp] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-20T23:41:38.868+05:30  INFO 23612 --- [paymentSystemApp] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.10.Final
+2025-03-20T23:41:38.921+05:30  INFO 23612 --- [paymentSystemApp] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-03-20T23:41:39.183+05:30  INFO 23612 --- [paymentSystemApp] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-20T23:41:39.222+05:30  INFO 23612 --- [paymentSystemApp] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-03-20T23:41:39.534+05:30  INFO 23612 --- [paymentSystemApp] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@31693a86
+2025-03-20T23:41:39.535+05:30  INFO 23612 --- [paymentSystemApp] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-03-20T23:41:40.582+05:30  INFO 23612 --- [paymentSystemApp] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-20T23:41:40.654+05:30  INFO 23612 --- [paymentSystemApp] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-20T23:41:41.048+05:30  INFO 23612 --- [paymentSystemApp] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-03-20T23:41:41.942+05:30  WARN 23612 --- [paymentSystemApp] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-20T23:41:42.288+05:30  INFO 23612 --- [paymentSystemApp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2025-03-20T23:41:42.292+05:30  INFO 23612 --- [paymentSystemApp] [main] o.p.PaymentSystemApplication             : Started PaymentSystemApplication in 5.862 seconds (process running for 6.326)
+2025-03-20T23:41:53.452+05:30  INFO 23612 --- [paymentSystemApp] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-03-20T23:41:53.452+05:30  INFO 23612 --- [paymentSystemApp] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-03-20T23:41:53.454+05:30  INFO 23612 --- [paymentSystemApp] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
