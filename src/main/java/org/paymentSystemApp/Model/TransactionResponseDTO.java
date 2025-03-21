@@ -44,4 +44,19 @@ public class TransactionResponseDTO {
     private Boolean fraud_prediction;
     @JsonProperty("fraud_probability")
     private Float fraud_probability;
+
+    public TransactionResponseDTO(String transaction_id, String debitor_vpa, String creditor_vpa, BigDecimal amount,
+                                  String currency, String txn_status, String note_from_debitor, String message,
+                                  LocalDateTime transaction_initiated_timestamp, LocalDateTime current_status_timestamp){
+        this.transaction_id = transaction_id;
+        this.debitor_vpa = debitor_vpa;
+        this.creditor_vpa = creditor_vpa;
+        this.amount = amount;
+        this.currency = currency;
+        this.txn_status = txn_status;
+        this.note_from_debitor = note_from_debitor;
+        this.message = message;
+        this.transaction_initiated_timestamp = transaction_initiated_timestamp;
+        this.current_status_timestamp = current_status_timestamp;
+    }
 }

@@ -25,9 +25,11 @@ public class TransactionService {
     private final VpaBalanceRepository vpaBalanceRepository;
     private final RiskFraudCallerService riskFraudCallerService;
     private final SettlementService settlementService;
+    private final NotificationAndPostingService notificationAndPostingService;
 
     public TransactionService(TransactionRepository transactionRepository, VpaRepository vpaRepository, TransactionIdGenerationService transactionIdGenerationService, AmountValidationService amountValidationService,
-                              VpaBalanceRepository vpaBalanceRepository, RiskFraudCallerService riskFraudCallerService, SettlementService settlementService) { //Constructor Injection
+                              VpaBalanceRepository vpaBalanceRepository, RiskFraudCallerService riskFraudCallerService,
+                              SettlementService settlementService, NotificationAndPostingService notificationAndPostingService) { //Constructor Injection
         this.transactionRepository = transactionRepository;
         this.vpaRepository = vpaRepository;
         this.transactionIdGenerationService = transactionIdGenerationService;
@@ -35,6 +37,7 @@ public class TransactionService {
         this.vpaBalanceRepository = vpaBalanceRepository;
         this.riskFraudCallerService = riskFraudCallerService;
         this.settlementService = settlementService;
+        this.notificationAndPostingService = notificationAndPostingService;
     }
 
     public ResponseEntity<TransactionResponseDTO> initiateTransaction(TransactionRequestDTO transactionRequestDTO) throws JsonProcessingException {
@@ -151,12 +154,14 @@ public class TransactionService {
 
 
                 settlementService.settleTransaction(transactionRequestDTO, txnId, transactionInitiatedTime);
-                response.setMessage("Settlement completed");
-                return ResponseEntity.status(HttpStatus.OK).body(response);
-
-
-
-
+                notificationAndPostingService.sendNotification(transactionRequestDTO, txnId, transactionInitiatedTime);
+                notificationAndPostingService.paymentPosting(transactionRequestDTO, txnId, transactionInitiatedTime);
+                String responseStatus = "Transaction Completed";
+                String responseMessage = "Payment completed successfully";
+                TransactionResponseDTO sendResponse = new TransactionResponseDTO(txnId, transactionRequestDTO.getDebitor_vpa(), transactionRequestDTO.getCreditor_vpa(),
+                        transactionRequestDTO.getAmount(), transactionRequestDTO.getCurrency(), responseStatus, transactionRequestDTO.getNote(), responseMessage,
+                        transactionInitiatedTime, LocalDateTime.now());
+                return ResponseEntity.status(HttpStatus.OK).body(sendResponse);
             }
         }
     }

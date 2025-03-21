@@ -36,4 +36,15 @@ public class TransactionHistory {
     @Column(name="completed_timestamp")
     private LocalDateTime completed_timestamp;
 
+    public TransactionHistory(String transaction_id, String debitor_vpa, String creditor_vpa, BigDecimal amount, String currency, String note_from_debitor, LocalDateTime transaction_initiated_timestamp, LocalDateTime completed_timestamp){
+        this.transaction_id = transaction_id;
+        this.debitor_vpa = debitor_vpa;
+        this.creditor_vpa = creditor_vpa;
+        this.amount = amount;
+        this.currency = currency;
+        this.note_from_debitor = note_from_debitor;
+        this.transaction_initiated_timestamp = transaction_initiated_timestamp;
+        this.completed_timestamp = completed_timestamp;
+    }
+
 }
