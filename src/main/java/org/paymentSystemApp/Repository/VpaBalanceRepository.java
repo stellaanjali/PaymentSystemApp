@@ -17,7 +17,7 @@ public interface VpaBalanceRepository extends JpaRepository<VpaBalance, Integer>
 
     //List<Vpa> findByVpa_id(String vpa_id);
 
-        @Query("SELECT v FROM VpaBalance v WHERE v.vpa_id = :vpa_id")
+        @Query("SELECT v FROM VpaBalance v WHERE v.vpa_id = :vpa_id") // here v means row..
         List<VpaBalance> findByVpa_id(@Param("vpa_id") String vpa_id);
     //    @Query("SELECT v FROM Vpa v WHERE v.userId = :userId")
     //    List<Vpa> findByUserId(@Param("userId") Integer userId);

@@ -1,5 +1,6 @@
 package org.paymentSystemApp.Service;
 
+import org.paymentSystemApp.Exceptions.InputValidationException;
 import org.paymentSystemApp.Model.*;
 import org.paymentSystemApp.Repository.VpaBalanceRepository;
 import org.paymentSystemApp.Repository.VpaRepository;
@@ -15,12 +16,19 @@ public class UserAccountService {
     private final VpaRepository vpaRepository;
     private final VpaBalanceRepository vpaBalanceRepository;
 
+
     public UserAccountService(VpaRepository vpaRepository, VpaBalanceRepository vpaBalanceRepository) {
         this.vpaRepository = vpaRepository;
         this.vpaBalanceRepository = vpaBalanceRepository;
+
     }
 
-    public ResponseEntity<VpaResponseDTO> createVpa(VpaRequestDTO vpaRequestDTO) {
+    public ResponseEntity<VpaResponseDTO> createVpa(VpaRequestDTO vpaRequestDTO){
+        try {
+            InputValidationService.validatePhoneNumber(vpaRequestDTO.getPhone_number());
+        } catch (InputValidationException e) {
+            throw new RuntimeException(e);
+        }
         Integer user_id = vpaRequestDTO.getUser_id();
         List<Vpa> checkVpaIdInDb = vpaRepository.findByUser_id(user_id);
         if (checkVpaIdInDb.isEmpty()) {

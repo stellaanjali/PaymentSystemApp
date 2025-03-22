@@ -1,7 +1,9 @@
 package org.paymentSystemApp.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.paymentSystemApp.Exceptions.InputValidationException;
 import org.paymentSystemApp.Model.*;
+import org.paymentSystemApp.Repository.TransactionHistoryRepository;
 import org.paymentSystemApp.Repository.TransactionRepository;
 import org.paymentSystemApp.Repository.VpaBalanceRepository;
 import org.paymentSystemApp.Repository.VpaRepository;
@@ -11,9 +13,11 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
+
+import static org.paymentSystemApp.Config.ShortenSOPln.print;
 
 @Service
 
@@ -26,10 +30,12 @@ public class TransactionService {
     private final RiskFraudCallerService riskFraudCallerService;
     private final SettlementService settlementService;
     private final NotificationAndPostingService notificationAndPostingService;
+    private final TransactionHistoryRepository transactionHistoryRepository;
 
     public TransactionService(TransactionRepository transactionRepository, VpaRepository vpaRepository, TransactionIdGenerationService transactionIdGenerationService, AmountValidationService amountValidationService,
                               VpaBalanceRepository vpaBalanceRepository, RiskFraudCallerService riskFraudCallerService,
-                              SettlementService settlementService, NotificationAndPostingService notificationAndPostingService) { //Constructor Injection
+                              SettlementService settlementService, NotificationAndPostingService notificationAndPostingService,
+                              TransactionHistoryRepository transactionHistoryRepository) { //Constructor Injection
         this.transactionRepository = transactionRepository;
         this.vpaRepository = vpaRepository;
         this.transactionIdGenerationService = transactionIdGenerationService;
@@ -38,9 +44,10 @@ public class TransactionService {
         this.riskFraudCallerService = riskFraudCallerService;
         this.settlementService = settlementService;
         this.notificationAndPostingService = notificationAndPostingService;
+        this.transactionHistoryRepository = transactionHistoryRepository;
     }
 
-    public ResponseEntity<TransactionResponseDTO> initiateTransaction(TransactionRequestDTO transactionRequestDTO) throws JsonProcessingException {
+    public ResponseEntity<TransactionResponseDTO> initiateTransaction(TransactionRequestDTO transactionRequestDTO) throws JsonProcessingException, InputValidationException {
         LocalDateTime transactionInitiatedTime = LocalDateTime.now();
         Boolean isValidDebitorVpa = validateDebitorVpa(transactionRequestDTO.getDebitor_vpa());
         Boolean isValidCreditorVpa = validateCreditorVpa(transactionRequestDTO.getCreditor_vpa());
@@ -71,7 +78,7 @@ public class TransactionService {
 //                    String generatedId = generateTxnId.generateTransactionId(transactionRequestDTO.getDebitor_vpa());
                 // using DI
                 String txnId = transactionIdGenerationService.generateTransactionId(transactionRequestDTO.getDebitor_vpa());
-                System.out.println("Generated txn id = " + txnId);
+                print("Generated txn id = " + txnId);
 
 //                    TransactionStatus txnStatus = new TransactionStatus(txnId); //ek aisa constructor jo txnId accept krta wo exist krta h transaction status mei, so we can use that to create objects of that class
 //                    TransactionStatus txnStatus = new TransactionStatus(); //ye v use kr sakte for obj creation as it exists in the txn status class
@@ -119,21 +126,27 @@ public class TransactionService {
                 fraudCheckRequestDTO.setCreditor_balance(creditorBalance);
 
                 fraudCheckRequestDTO.setAmount(transactionRequestDTO.getAmount());
-                fraudCheckRequestDTO.setDebitor_txn_history(7);
-                fraudCheckRequestDTO.setCreditor_txn_history(10);
-                fraudCheckRequestDTO.setDebitor_avg_txn(BigDecimal.valueOf(22.50));
-                System.out.println("Starting to call risk and fraud microservice to check our transaction");
+                fraudCheckRequestDTO.setDebitor_txn_history(transactionHistoryRepository.getCountOfDebitorVpa(transactionRequestDTO.getDebitor_vpa()));
+                fraudCheckRequestDTO.setCreditor_txn_history(transactionHistoryRepository.getCountOfCreditorVpa(transactionRequestDTO.getCreditor_vpa()));
+                if(transactionHistoryRepository.getAvgDebitorTxnAmount(transactionRequestDTO.getDebitor_vpa()) == null){
+                    fraudCheckRequestDTO.setDebitor_avg_txn(BigDecimal.ZERO);
+                }
+                else {
+                    fraudCheckRequestDTO.setDebitor_avg_txn(transactionHistoryRepository.getAvgDebitorTxnAmount(transactionRequestDTO.getDebitor_vpa()));
+                }
+
+                print("Starting to call risk and fraud microservice to check our transaction");
                 long beforeCallingRiskFraudService = System.currentTimeMillis();
-                System.out.println("Current Timestamp in Milliseconds: " + beforeCallingRiskFraudService);
+                print("Current Timestamp in Milliseconds: " + beforeCallingRiskFraudService);
 
                 FraudCheckResponseDTO fraudCheckResponseDTO = riskFraudCallerService.sendDataToRiskFraudService(fraudCheckRequestDTO);
                 long afterCallingRiskFraudService = System.currentTimeMillis();
-                System.out.println("Current Timestamp in Milliseconds: " + afterCallingRiskFraudService);
+                print("Current Timestamp in Milliseconds: " + afterCallingRiskFraudService);
                 long apiRTT = afterCallingRiskFraudService - beforeCallingRiskFraudService;
-                System.out.println("Round trip time for the API was:" +apiRTT + " ms");
-                System.out.println("Response fetched from risk and fraud");
+                print("Round trip time for the API was:" + apiRTT + " ms");
+                print("Response fetched from risk and fraud");
 
-                if(fraudCheckResponseDTO.getFraud_prediction()){
+                if (fraudCheckResponseDTO.getFraud_prediction()) {
                     status = "Fraud Payment Detected";
                     TransactionStatus fraudValidation = new TransactionStatus(txnId, transactionRequestDTO.getDebitor_vpa(),
                             transactionRequestDTO.getCreditor_vpa(), transactionRequestDTO.getAmount(), transactionRequestDTO.getCurrency(),
@@ -161,10 +174,59 @@ public class TransactionService {
                 TransactionResponseDTO sendResponse = new TransactionResponseDTO(txnId, transactionRequestDTO.getDebitor_vpa(), transactionRequestDTO.getCreditor_vpa(),
                         transactionRequestDTO.getAmount(), transactionRequestDTO.getCurrency(), responseStatus, transactionRequestDTO.getNote(), responseMessage,
                         transactionInitiatedTime, LocalDateTime.now());
+                sendResponse.setFraud_probability(fraudCheckResponseDTO.getFraud_probability());
+                sendResponse.setFraud_prediction(fraudCheckResponseDTO.getFraud_prediction());
                 return ResponseEntity.status(HttpStatus.OK).body(sendResponse);
             }
         }
     }
+
+        public ResponseEntity<List<TransactionResponseDTO>> getTransactionHistoryTable() {
+            List<TransactionHistory> fetchedTxnHistory = transactionHistoryRepository.findAll();
+            Integer tableSize = fetchedTxnHistory.size();
+            List<TransactionResponseDTO> showTxnHistoryTable = new ArrayList<>();
+            for (int pos = 0; pos < tableSize; pos++) {
+                TransactionHistory fetchedTxnHistoryTable = fetchedTxnHistory.get(pos);
+
+                TransactionResponseDTO transactionResponseDTO = new TransactionResponseDTO();
+                transactionResponseDTO.setTransaction_id(fetchedTxnHistoryTable.getTransaction_id());
+                transactionResponseDTO.setDebitor_vpa(fetchedTxnHistoryTable.getDebitor_vpa());
+                transactionResponseDTO.setCreditor_vpa(fetchedTxnHistoryTable.getCreditor_vpa());
+                transactionResponseDTO.setAmount(fetchedTxnHistoryTable.getAmount());
+                transactionResponseDTO.setCurrency(fetchedTxnHistoryTable.getCurrency());
+                transactionResponseDTO.setNote_from_debitor(fetchedTxnHistoryTable.getNote_from_debitor());
+                transactionResponseDTO.setTransaction_initiated_timestamp(fetchedTxnHistoryTable.getTransaction_initiated_timestamp());
+                transactionResponseDTO.setCurrent_status_timestamp(fetchedTxnHistoryTable.getCompleted_timestamp());
+                showTxnHistoryTable.add(transactionResponseDTO);
+
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(showTxnHistoryTable);
+
+        }
+
+        public ResponseEntity<List<TransactionResponseDTO>> getTransactionStatus(String transaction_id){
+        List<TransactionStatus> fetchedTxnStatus = transactionRepository.findByTxnId(transaction_id);
+        Integer tableLength = fetchedTxnStatus.size();
+        List<TransactionResponseDTO> showTxnStatus = new ArrayList<>();
+        for(int pos = 0; pos < tableLength; pos++){
+            TransactionStatus fetchedTxnStatusTable = fetchedTxnStatus.get(pos);
+            TransactionResponseDTO transactionResponseDTO = new TransactionResponseDTO();
+            transactionResponseDTO.setTransaction_id(transaction_id);
+            transactionResponseDTO.setDebitor_vpa(fetchedTxnStatusTable.getDebitor_vpa());
+            transactionResponseDTO.setCreditor_vpa(fetchedTxnStatusTable.getCreditor_vpa());
+            transactionResponseDTO.setAmount(fetchedTxnStatusTable.getAmount());
+            transactionResponseDTO.setCurrency(fetchedTxnStatusTable.getCurrency());
+            transactionResponseDTO.setTxn_status(fetchedTxnStatusTable.getTxn_status());
+            transactionResponseDTO.setNote_from_debitor(fetchedTxnStatusTable.getNote_from_debitor());
+            transactionResponseDTO.setTransaction_initiated_timestamp(fetchedTxnStatusTable.getTransaction_initiated_timestamp());
+            transactionResponseDTO.setCurrent_status_timestamp(fetchedTxnStatusTable.getCurrent_status_timestamp());
+            showTxnStatus.add(transactionResponseDTO);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(showTxnStatus);
+
+        }
+
+
 
         public BigDecimal fetchBalanceFromVpaId (String vpaId){
             List<VpaBalance> vpaInDb = vpaBalanceRepository.findByVpa_id(vpaId);

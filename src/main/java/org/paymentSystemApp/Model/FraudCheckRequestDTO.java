@@ -24,5 +24,5 @@ public class FraudCheckRequestDTO {
     @JsonProperty("creditor_txn_history")
     private Integer creditor_txn_history;
     @JsonProperty("debitor_avg_txn")
-    private BigDecimal debitor_avg_txn;
+    private BigDecimal debitor_avg_txn = BigDecimal.ZERO;
 }

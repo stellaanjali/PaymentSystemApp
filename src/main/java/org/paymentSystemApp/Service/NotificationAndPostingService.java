@@ -1,5 +1,6 @@
 package org.paymentSystemApp.Service;
 
+import org.paymentSystemApp.Exceptions.InputValidationException;
 import org.paymentSystemApp.Model.TransactionHistory;
 import org.paymentSystemApp.Model.TransactionRequestDTO;
 import org.paymentSystemApp.Model.TransactionStatus;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+import static org.paymentSystemApp.Config.ShortenSOPln.print;
 
 @Service
 
@@ -31,7 +32,7 @@ public class NotificationAndPostingService {
     }
 
     public void sendNotification(TransactionRequestDTO transactionRequestDTO, String txnId, LocalDateTime transactionInitiatedTime){
-        System.out.println("Notification sent to the Debitor and Creditor");
+        print("Notification sent to the Debitor and Creditor");
         String status = "Notification Sent";
         TransactionStatus txnStatus = new TransactionStatus(txnId, transactionRequestDTO.getDebitor_vpa(),
                 transactionRequestDTO.getCreditor_vpa(), transactionRequestDTO.getAmount(), transactionRequestDTO.getCurrency(),
@@ -39,7 +40,7 @@ public class NotificationAndPostingService {
         TransactionStatus savedTxnStatus = transactionRepository.save(txnStatus);
     }
 
-    public void paymentPosting(TransactionRequestDTO transactionRequestDTO, String txnId, LocalDateTime transactionInitiatedTime){
+    public void paymentPosting(TransactionRequestDTO transactionRequestDTO, String txnId, LocalDateTime transactionInitiatedTime)  {
         String status = "Transaction Completed";
         TransactionStatus txnStatus = new TransactionStatus(txnId, transactionRequestDTO.getDebitor_vpa(),
                 transactionRequestDTO.getCreditor_vpa(), transactionRequestDTO.getAmount(), transactionRequestDTO.getCurrency(),
@@ -49,5 +50,7 @@ public class NotificationAndPostingService {
         TransactionHistory txnHistory = new TransactionHistory(txnId, transactionRequestDTO.getDebitor_vpa(), transactionRequestDTO.getCreditor_vpa(),
                 transactionRequestDTO.getAmount(), transactionRequestDTO.getCurrency(), transactionRequestDTO.getNote(), transactionInitiatedTime, LocalDateTime.now());
         TransactionHistory savedTxnHistory = transactionHistoryRepository.save(txnHistory);
+
+        
     }
 }

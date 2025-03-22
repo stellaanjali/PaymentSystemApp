@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static org.paymentSystemApp.Config.ShortenSOPln.print;
+
 @Service
 public class UserService {
     private final  UserRepository userRepository;
@@ -28,9 +30,9 @@ public class UserService {
             user.setName(userRequestDTO.getName());
             user.setEmail(userRequestDTO.getEmail());
             user.setPassword(userRequestDTO.getPassword());
-            System.out.println("Starting to save users");
+            print("Starting to save users");
             User savedUser = userRepository.save(user);//user table mei saman save krta h
-            System.out.println("User saved in DB");
+            print("User saved in DB");
             //UserDTO userDto = new UserDTO(savedUser);//user type se userdto mei ja rhe..kyuki return type is userdto
             UserResponseDTO userResponseDto = new UserResponseDTO();
             userResponseDto.setId(savedUser.getId());
@@ -50,20 +52,20 @@ public class UserService {
 
 
         public ResponseEntity<List<UserResponseDTO>> fetchUsers(){
-            System.out.println("Starting to fetch users");
+            print("Starting to fetch users");
             List<User> usersFetched = userRepository.findAll();
 
             // Debugging: Print fetched users
-            System.out.println("Fetched Users: " + usersFetched);
+            print("Fetched Users: " + usersFetched);
 
             if (usersFetched.isEmpty()) {
-                System.out.println("No users found in DB.");
+                print("No users found in DB.");
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(List.of());
             }
-            System.out.println("Users Fetched Successfully");
+            print("Users Fetched Successfully");
             // Debugging: Print mapped DTOs
             List<UserResponseDTO> userResponseDTOS = usersFetched.stream().map(user -> new UserResponseDTO(user)).toList();
-            System.out.println("Mapped DTOs: " + userResponseDTOS);
+            print("Mapped DTOs: " + userResponseDTOS);
             return ResponseEntity.status(HttpStatus.OK).body(userResponseDTOS);
         }
 
@@ -71,9 +73,9 @@ public class UserService {
         public ResponseEntity<UserResponseDTO> userLogin(UserRequestDTO loginRequest){
         String email = loginRequest.getEmail();
         String password = loginRequest.getPassword();
-        System.out.println("Starting to fetch email from DB");
+        print("Starting to fetch email from DB");
         List<User> loginCredsCheck = userRepository.findByEmail(email);
-        System.out.println("Fetched email from DB");
+        print("Fetched email from DB");
         if(loginCredsCheck.isEmpty()){
             UserResponseDTO userResponseDTO = new UserResponseDTO();
             userResponseDTO.setMessage("Please enter valid login credentails.");

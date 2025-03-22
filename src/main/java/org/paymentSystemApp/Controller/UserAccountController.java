@@ -1,5 +1,6 @@
 package org.paymentSystemApp.Controller;
 
+import org.paymentSystemApp.Exceptions.InputValidationException;
 import org.paymentSystemApp.Model.*;
 import org.paymentSystemApp.Service.UserAccountService;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class UserAccountController {
     }
 
     @PostMapping("/createVpa")
-    public ResponseEntity<VpaResponseDTO> createVpa(@RequestBody VpaRequestDTO vpaRequestDTO){
+    public ResponseEntity<VpaResponseDTO> createVpa(@RequestBody VpaRequestDTO vpaRequestDTO) throws InputValidationException {
         return userAccountService.createVpa(vpaRequestDTO);
     }
 

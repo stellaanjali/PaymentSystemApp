@@ -12,6 +12,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static org.paymentSystemApp.Config.ShortenSOPln.print;
+
 @Service
 
 public class SettlementService {
@@ -39,7 +41,7 @@ public class SettlementService {
         VpaBalance fetchedVpaBalance = debitorVpaInDb.get(0);
         BigDecimal fetchedBalance = fetchedVpaBalance.getVpa_balance();
         BigDecimal updateDebitorBalance = fetchedBalance.subtract(amountToBeSettled);
-        System.out.println(fetchedBalance+" "+updateDebitorBalance+" "+amountToBeSettled);
+        print(fetchedBalance+" "+updateDebitorBalance+" "+amountToBeSettled);
         fetchedVpaBalance.setVpa_balance(updateDebitorBalance);
         fetchedVpaBalance.setLast_updated(LocalDateTime.now());
         VpaBalance updateDBalance = vpaBalanceRepository.save(fetchedVpaBalance);
@@ -48,7 +50,7 @@ public class SettlementService {
         VpaBalance fetchedCreditorVpaBalance = creditorVpaInDb.get(0);
         BigDecimal fetchedCreditorBalance = fetchedCreditorVpaBalance.getVpa_balance();
         BigDecimal updateCreditorBalance = fetchedCreditorBalance.add(amountToBeSettled);
-        System.out.println(fetchedCreditorBalance+" "+updateCreditorBalance+" "+amountToBeSettled);
+        print(fetchedCreditorBalance+" "+updateCreditorBalance+" "+amountToBeSettled);
         fetchedCreditorVpaBalance.setVpa_balance(updateCreditorBalance);
         fetchedCreditorVpaBalance.setLast_updated(LocalDateTime.now());
         VpaBalance updateCBalance = vpaBalanceRepository.save(fetchedCreditorVpaBalance);
