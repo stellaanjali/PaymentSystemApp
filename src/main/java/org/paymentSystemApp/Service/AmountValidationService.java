@@ -9,6 +9,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
+import static org.paymentSystemApp.Config.ShortenSOPln.print;
+
 @Service
 
 public class AmountValidationService {
@@ -29,6 +31,7 @@ public class AmountValidationService {
             VpaBalance fetchedVpaBalance = debitorVpaInDb.get(0);
             BigDecimal fetchedBalance = fetchedVpaBalance.getVpa_balance();
             if(fetchedBalance.compareTo(amount) >= 0){ // to compare two big decimals
+                print("The Debitor has sufficent money");
                 return Boolean.TRUE;
             }
             else{

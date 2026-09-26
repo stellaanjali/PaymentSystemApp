@@ -7,6 +7,8 @@ import org.paymentSystemApp.Repository.TransactionHistoryRepository;
 import org.paymentSystemApp.Repository.TransactionRepository;
 import org.paymentSystemApp.Repository.VpaBalanceRepository;
 import org.paymentSystemApp.Repository.VpaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,8 +22,9 @@ import java.util.Objects;
 import static org.paymentSystemApp.Config.ShortenSOPln.print;
 
 @Service
-
+@Scope("singleton")
 public class TransactionService {
+    
     private final TransactionRepository transactionRepository;
     private final VpaRepository vpaRepository;
     private final TransactionIdGenerationService transactionIdGenerationService;

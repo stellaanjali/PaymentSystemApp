@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 
-
+//This is an entity..ye jo db ka table h usse map hota hai...ye kaam hibernate krta hai
 public class TransactionStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
